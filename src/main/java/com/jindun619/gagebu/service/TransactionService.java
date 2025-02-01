@@ -3,8 +3,10 @@ package com.jindun619.gagebu.service;
 import com.jindun619.gagebu.entity.Transaction;
 import com.jindun619.gagebu.repository.TransactionRepository;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +22,9 @@ public class TransactionService {
         return repository.save(transaction);
     }
 
-    public List<Transaction> getAllTransactions() {
-        return repository.findAll();
+    public List<Transaction> getAllTransactions(String sortBy, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
+        return repository.findAll(sort);
     }
 
     public Optional<Transaction> getTransactionById(Long id) {
