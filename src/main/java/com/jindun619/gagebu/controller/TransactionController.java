@@ -1,6 +1,7 @@
 package com.jindun619.gagebu.controller;
 //
 
+import com.jindun619.gagebu.dto.TransactionUpdateDTO;
 import com.jindun619.gagebu.entity.Transaction;
 import com.jindun619.gagebu.service.TransactionService;
 import jakarta.validation.Valid;
@@ -19,11 +20,9 @@ import java.util.Optional;
 @RequestMapping("/transactions")
 public class TransactionController {
     private final TransactionService service;
-    private final TransactionService transactionService;
 
     public TransactionController(TransactionService service, TransactionService transactionService) {
         this.service = service;
-        this.transactionService = transactionService;
     }
 
     @PostMapping
@@ -73,8 +72,8 @@ public class TransactionController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateTransaction(@PathVariable Long id, @RequestBody @Valid Transaction transaction, BindingResult bindingResult) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> updateTransaction(@PathVariable Long id, @RequestBody @Valid TransactionUpdateDTO transaction, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             StringBuilder errorMessage = new StringBuilder();
             bindingResult.getAllErrors().forEach(error -> errorMessage.append(error.getDefaultMessage()).append(" "));
@@ -82,6 +81,7 @@ public class TransactionController {
         }
 
         boolean didSuccess = service.updateTransaction(id, transaction);
+        System.out.println(didSuccess);
         if (didSuccess) {
             return ResponseEntity.status(HttpStatus.OK).body("id " + id + " updated successfully");
         } else {

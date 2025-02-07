@@ -1,5 +1,6 @@
 package com.jindun619.gagebu.service;
 
+import com.jindun619.gagebu.dto.TransactionUpdateDTO;
 import com.jindun619.gagebu.entity.Transaction;
 import com.jindun619.gagebu.repository.TransactionRepository;
 import com.jindun619.gagebu.specification.TransactionSpecification;
@@ -57,24 +58,24 @@ public class TransactionService {
             spec = spec.and(TransactionSpecification.hasTransactionType(transactionType));
         }
 
-        return repository.findAll(spec);
+        return repository.findAll(spec, sort);
     }
 
     public Optional<Transaction> getTransactionById(Long id) {
         return repository.findById(id);
     }
 
-    public boolean updateTransaction(Long id, @Valid Transaction transaction) {
+    public boolean updateTransaction(Long id, TransactionUpdateDTO transaction) {
         Optional<Transaction> existingTransaction = repository.findById(id);
         if (existingTransaction.isPresent()) {
             Transaction updatedTransaction = existingTransaction.get();
-            updatedTransaction.setContent(transaction.getContent());
-            updatedTransaction.setDate(transaction.getDate());
-            updatedTransaction.setCategory(transaction.getCategory());
-            updatedTransaction.setAmount(transaction.getAmount());
-            updatedTransaction.setCurrency(transaction.getCurrency());
-            updatedTransaction.setDescription(transaction.getDescription());
-            updatedTransaction.setType(transaction.getType());
+            if (transaction.getContent() != null) updatedTransaction.setContent(transaction.getContent());
+            if (transaction.getDate() != null) updatedTransaction.setDate(transaction.getDate());
+            if (transaction.getCategory() != null) updatedTransaction.setCategory(transaction.getCategory());
+            if (transaction.getAmount() != null) updatedTransaction.setAmount(transaction.getAmount());
+            if (transaction.getCurrency() != null) updatedTransaction.setCurrency(transaction.getCurrency());
+            if (transaction.getDescription() != null) updatedTransaction.setDescription(transaction.getDescription());
+            if (transaction.getType() != null) updatedTransaction.setType(transaction.getType());
 
             repository.save(updatedTransaction);
             return true;
