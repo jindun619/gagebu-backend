@@ -4,11 +4,14 @@ package com.jindun619.gagebu.controller;
 import com.jindun619.gagebu.entity.Transaction;
 import com.jindun619.gagebu.service.TransactionService;
 import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,8 +40,26 @@ public class TransactionController {
     @GetMapping
     public ResponseEntity<List<Transaction>> getAllTransactions(
             @RequestParam(defaultValue = "date") String sortBy,
-            @RequestParam(defaultValue = "ASC") String direction) {
-        List<Transaction> allTransactions = service.getAllTransactions(sortBy, direction);
+            @RequestParam(defaultValue = "ASC") String direction,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) BigDecimal minAmount,
+            @RequestParam(required = false) BigDecimal maxAmount,
+            @RequestParam(required = false) String currency,
+            @RequestParam(required = false) String transactionType
+            ) {
+        List<Transaction> allTransactions = service.getAllTransactions(
+                sortBy,
+                direction,
+                startDate,
+                endDate,
+                category,
+                minAmount,
+                maxAmount,
+                currency,
+                transactionType
+        );
         return ResponseEntity.status(HttpStatus.OK).body(allTransactions);
     }
 
