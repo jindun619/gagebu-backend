@@ -31,8 +31,6 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private Currency currency;
 
-    @NotNull(message = "설명(description)은 필수입니다.")
-    @Size(min = 1, message = "설명(description)은 비어 있을 수 없습니다.")
     private String description;
 
     @NotNull(message = "거래 유형(type)은 필수입니다.")

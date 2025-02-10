@@ -24,7 +24,6 @@ public class TransactionUpdateDTO {
     @Enumerated(EnumType.STRING)
     private Currency currency;
 
-    @Size(min = 1, message = "설명(description)은 비어 있을 수 없습니다.")
     private String description;
 
     @Enumerated(EnumType.STRING)

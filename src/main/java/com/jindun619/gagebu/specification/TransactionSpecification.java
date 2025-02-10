@@ -33,7 +33,7 @@ public class TransactionSpecification {
 
     public static Specification<Transaction> hasTransactionType(String transactionType) {
         return (root, query, criteriaBuilder) ->
-                transactionType == null ? null : criteriaBuilder.equal(root.get("transactionType"), transactionType);
+                transactionType == null ? null : criteriaBuilder.equal(root.get("type"), transactionType);
     }
 
 }

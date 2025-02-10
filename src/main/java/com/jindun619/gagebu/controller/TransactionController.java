@@ -38,13 +38,22 @@ public class TransactionController {
 
     @GetMapping
     public ResponseEntity<List<Transaction>> getAllTransactions(
+//            @RequestParam(defaultValue = "date") String sortBy,
+//            @RequestParam(defaultValue = "ASC") String direction,
+//            @RequestParam(defaultValue = "0000-01-01", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+//            @RequestParam(defaultValue = "2100-01-01", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+//            @RequestParam(required = false) String category,
+//            @RequestParam(defaultValue = "0", required = false) BigDecimal minAmount,
+//            @RequestParam(defaultValue = "99999999", required = false) BigDecimal maxAmount,
+//            @RequestParam(defaultValue = "CNY", required = false) String currency,
+//            @RequestParam(required = false) String transactionType
             @RequestParam(defaultValue = "date") String sortBy,
             @RequestParam(defaultValue = "ASC") String direction,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @RequestParam(defaultValue = "0000-01-01", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(defaultValue = "2100-01-01", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam(required = false) String category,
-            @RequestParam(required = false) BigDecimal minAmount,
-            @RequestParam(required = false) BigDecimal maxAmount,
+            @RequestParam(defaultValue = "0", required = false) BigDecimal minAmount,
+            @RequestParam(defaultValue = "99999999", required = false) BigDecimal maxAmount,
             @RequestParam(required = false) String currency,
             @RequestParam(required = false) String transactionType
             ) {
