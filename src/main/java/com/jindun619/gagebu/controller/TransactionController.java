@@ -1,6 +1,7 @@
 package com.jindun619.gagebu.controller;
 //
 
+import com.jindun619.gagebu.dto.CategoryTotalAmountDTO;
 import com.jindun619.gagebu.dto.TransactionUpdateDTO;
 import com.jindun619.gagebu.entity.Transaction;
 import com.jindun619.gagebu.service.TransactionService;
@@ -38,15 +39,6 @@ public class TransactionController {
 
     @GetMapping
     public ResponseEntity<List<Transaction>> getAllTransactions(
-//            @RequestParam(defaultValue = "date") String sortBy,
-//            @RequestParam(defaultValue = "ASC") String direction,
-//            @RequestParam(defaultValue = "0000-01-01", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-//            @RequestParam(defaultValue = "2100-01-01", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-//            @RequestParam(required = false) String category,
-//            @RequestParam(defaultValue = "0", required = false) BigDecimal minAmount,
-//            @RequestParam(defaultValue = "99999999", required = false) BigDecimal maxAmount,
-//            @RequestParam(defaultValue = "CNY", required = false) String currency,
-//            @RequestParam(required = false) String transactionType
             @RequestParam(defaultValue = "date") String sortBy,
             @RequestParam(defaultValue = "ASC") String direction,
             @RequestParam(defaultValue = "0000-01-01", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
@@ -79,6 +71,14 @@ public class TransactionController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+    }
+
+    @GetMapping("/category-wise-amount")
+    public List<CategoryTotalAmountDTO> getCategoryWiseTotalAmount(
+            @RequestParam(defaultValue = "0000-01-01") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(defaultValue = "2100-01-01") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+    ) {
+        return service.getCategoryWiseTotalAmount(startDate, endDate);
     }
 
     @PatchMapping("/{id}")

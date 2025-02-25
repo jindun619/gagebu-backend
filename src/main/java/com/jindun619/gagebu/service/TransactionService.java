@@ -1,17 +1,16 @@
 package com.jindun619.gagebu.service;
 
+import com.jindun619.gagebu.dto.CategoryTotalAmountDTO;
 import com.jindun619.gagebu.dto.TransactionUpdateDTO;
 import com.jindun619.gagebu.entity.Transaction;
 import com.jindun619.gagebu.repository.TransactionRepository;
 import com.jindun619.gagebu.specification.TransactionSpecification;
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +62,10 @@ public class TransactionService {
 
     public Optional<Transaction> getTransactionById(Long id) {
         return repository.findById(id);
+    }
+
+    public List<CategoryTotalAmountDTO> getCategoryWiseTotalAmount(LocalDate startDate, LocalDate endDate) {
+        return repository.findCategoryWiseTotalAmount(startDate, endDate);
     }
 
     public boolean updateTransaction(Long id, TransactionUpdateDTO transaction) {
